@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useInterstitial } from "@/app/_components/interstitial";
+import { useBreakOverlay } from "@/app/_components/break-overlay";
 import { useNetSession } from "../_net/use-net-session";
 import type { NetRole } from "../_net/peer-net";
 import type { Difficulty, GameBridge, GameControls, GameOverResult } from "../_engine/types";
@@ -18,7 +18,7 @@ interface UseGameSessionOptions {
  */
 export function useGameSession({ gameId, title }: UseGameSessionOptions) {
   const net = useNetSession(gameId);
-  const interstitial = useInterstitial();
+  const interstitial = useBreakOverlay();
 
   const [difficulty, setDifficulty] = useState<Difficulty>("normal");
   const [score, setScore] = useState({ local: 0, rival: 0 });
@@ -68,7 +68,7 @@ export function useGameSession({ gameId, title }: UseGameSessionOptions) {
   /** Cambiar de modo o de dificultad obliga a recrear la escena. */
   const resetKey = `${effectiveRole}:${difficulty}`;
 
-  const showInterstitial = useCallback(
+  const showBreakOverlay = useCallback(
     (subtitle: string) => interstitial.show(title, subtitle),
     [interstitial, title],
   );
@@ -79,20 +79,20 @@ export function useGameSession({ gameId, title }: UseGameSessionOptions) {
     if (bootedRef.current) return;
     bootedRef.current = true;
     setOverlayPaused(true);
-    void showInterstitial("Preparando la partida…").then(() => {
+    void showBreakOverlay("Preparando la partida…").then(() => {
       setOverlayPaused(false);
     });
-  }, [showInterstitial, setOverlayPaused]);
+  }, [showBreakOverlay, setOverlayPaused]);
 
   const restart = useCallback(() => {
     setResult(null);
     setStatus("");
     setOverlayPaused(true);
-    void showInterstitial("Nueva partida en unos segundos…").then(() => {
+    void showBreakOverlay("Nueva partida en unos segundos…").then(() => {
       controlsRef.current?.restart();
       setOverlayPaused(false);
     });
-  }, [showInterstitial, setOverlayPaused]);
+  }, [showBreakOverlay, setOverlayPaused]);
 
   const action = useCallback((name: Parameters<NonNullable<GameControls["action"]>>[0]) => {
     controlsRef.current?.action?.(name);
@@ -115,7 +115,7 @@ export function useGameSession({ gameId, title }: UseGameSessionOptions) {
     result,
     restart,
     action,
-    interstitialNode: interstitial.node,
+    breakOverlayNode: interstitial.node,
     isOnline: effectiveRole !== "solo",
   };
 }

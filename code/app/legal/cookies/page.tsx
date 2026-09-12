@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArticleShell } from "@/app/_components/article-shell";
-import { CookieSettingsButton } from "@/app/_components/cookie-settings-button";
+import { PrefsResetButton } from "@/app/_components/prefs-reset-button";
 import { SITE_CONFIG } from "@/app/_utils/site.config";
 
 export const metadata = {
@@ -81,7 +81,7 @@ export default function CookiesPage() {
         inicial:
       </p>
       <p>
-        <CookieSettingsButton />
+        <PrefsResetButton />
       </p>
       <p>
         También puedes bloquear o eliminar cookies desde la configuración de tu navegador. Ten en

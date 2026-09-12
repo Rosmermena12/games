@@ -1,9 +1,9 @@
 "use client";
 
-import { ADS_CONFIG } from "@/app/_utils/ads.config";
-import { AdSlot } from "./ad-slot";
+import { SLOTS_CONFIG } from "@/app/_utils/slots.config";
+import { SlotFrame } from "./slot-frame";
 
-interface AdRailProps {
+interface SideRailProps {
   side: "left" | "right";
 }
 
@@ -11,12 +11,12 @@ interface AdRailProps {
  * Rascacielos lateral fijo. Se mantiene pegado al viewport mientras se juega y
  * desaparece por debajo de 1280px, donde no hay hueco sin tapar el tablero.
  */
-export function AdRail({ side }: AdRailProps) {
+export function SideRail({ side }: SideRailProps) {
   return (
     <div className="hidden xl:block">
       <div className="sticky top-24">
-        <AdSlot
-          slot={side === "left" ? ADS_CONFIG.slots.railLeft : ADS_CONFIG.slots.railRight}
+        <SlotFrame
+          slot={side === "left" ? SLOTS_CONFIG.slots.railLeft : SLOTS_CONFIG.slots.railRight}
           format="vertical"
           minHeight={600}
         />

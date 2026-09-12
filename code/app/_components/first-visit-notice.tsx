@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useConsent } from "@/app/_hooks/use-consent";
+import { useVisitorPrefs } from "@/app/_hooks/use-visitor-prefs";
 
 /**
  * Aviso de cookies previo a cualquier script de terceros. Es el requisito que
  * AdSense comprueba para tráfico del EEE, Reino Unido y Suiza: se puede
  * rechazar con el mismo número de clics que aceptar y la decisión se guarda.
  */
-export function ConsentBanner() {
-  const { consent, hydrated, acceptAll, rejectAll, save } = useConsent();
+export function FirstVisitNotice() {
+  const { consent, hydrated, acceptAll, rejectAll, save } = useVisitorPrefs();
   const [showDetails, setShowDetails] = useState(false);
   const [ads, setAds] = useState(true);
   const [analytics, setAnalytics] = useState(true);

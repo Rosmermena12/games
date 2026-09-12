@@ -11,4 +11,4 @@ Allow: /
 # Template demo, not part of the public site.
 Disallow: /products
 
-Sitemap: https://gamesfull.example/sitemap.xml
+Sitemap: https://games.rctest.online/sitemap.xml

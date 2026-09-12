@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { GameCard } from "./_components/game-card";
-import { AdSlot } from "./_components/ad-slot";
+import { SlotFrame } from "./_components/slot-frame";
+import { SafeArea } from "./_components/boundary";
 import { GAMES } from "./_utils/games.catalog";
 import { SITE_CONFIG } from "./_utils/site.config";
-import { ADS_CONFIG } from "./_utils/ads.config";
+import { SLOTS_CONFIG } from "./_utils/slots.config";
 
 export const metadata = {
   title: { absolute: `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}` },
@@ -101,12 +102,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <AdSlot
-        slot={ADS_CONFIG.slots.inline}
-        format="horizontal"
-        minHeight={100}
-        className="mt-10 w-full"
-      />
+      <SafeArea>
+        <SlotFrame
+          slot={SLOTS_CONFIG.slots.inline}
+          format="horizontal"
+          minHeight={100}
+          className="mt-10 w-full"
+        />
+      </SafeArea>
 
       <section aria-labelledby="como-va" className="mt-14 flex flex-col gap-5">
         <h2 id="como-va" className="text-xl font-medium tracking-[-0.01em] text-fg">

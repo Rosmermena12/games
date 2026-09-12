@@ -26,7 +26,7 @@ export function PoingGame({ game }: { game: GameSummary }) {
       onRestart={session.restart}
       difficulty={session.difficulty}
       onDifficultyChange={session.setDifficulty}
-      interstitialNode={session.interstitialNode}
+      breakOverlayNode={session.breakOverlayNode}
       lobby={
         <LobbyPanel
           role={session.net.role}

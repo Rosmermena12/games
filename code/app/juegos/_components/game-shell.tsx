@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { AdRail } from "@/app/_components/ad-rail";
+import { SideRail } from "@/app/_components/side-rail";
+import { SafeArea } from "@/app/_components/boundary";
 import type { GameSummary } from "@/app/_interfaces/game";
 import type { Difficulty, GameOverResult } from "../_engine/types";
 
@@ -21,7 +22,7 @@ interface GameShellProps {
   children: ReactNode;
   aside?: ReactNode;
   below?: ReactNode;
-  interstitialNode: ReactNode;
+  breakOverlayNode: ReactNode;
 }
 
 const DIFFICULTY_LABEL: Record<Difficulty, string> = {
@@ -48,7 +49,7 @@ export function GameShell({
   children,
   aside,
   below,
-  interstitialNode,
+  breakOverlayNode,
 }: GameShellProps) {
   return (
     <main
@@ -66,7 +67,9 @@ export function GameShell({
       </nav>
 
       <div className="gf-play-grid">
-        <AdRail side="left" />
+        <SafeArea>
+          <SideRail side="left" />
+        </SafeArea>
 
         <div className="flex min-w-0 flex-col gap-4">
           <header className="flex flex-wrap items-end justify-between gap-4">
@@ -160,10 +163,12 @@ export function GameShell({
           {below}
         </div>
 
-        <AdRail side="right" />
+        <SafeArea>
+          <SideRail side="right" />
+        </SafeArea>
       </div>
 
-      {interstitialNode}
+      <SafeArea>{breakOverlayNode}</SafeArea>
     </main>
   );
 }

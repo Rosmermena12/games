@@ -6,7 +6,7 @@
  * Para activar los anuncios reales: rellena `client` con tu `ca-pub-...` y los
  * identificadores de bloque que creaste en AdSense, y publica `/ads.txt`.
  */
-export const ADS_CONFIG = {
+export const SLOTS_CONFIG = {
   /** Ej. "ca-pub-1234567890123456". Vacío = modo marcador de posición. */
   client: "",
   slots: {
@@ -20,9 +20,9 @@ export const ADS_CONFIG = {
     interstitial: "",
   },
   /** Segundos que el intersticial permanece sin poder cerrarse. */
-  interstitialSeconds: 5,
+  breakSeconds: 5,
 } as const;
 
-export function areAdsEnabled(): boolean {
-  return ADS_CONFIG.client.trim().length > 0;
+export function areSlotsEnabled(): boolean {
+  return SLOTS_CONFIG.client.trim().length > 0;
 }

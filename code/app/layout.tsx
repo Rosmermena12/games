@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SiteHeader } from "./_components/site-header";
 import { SiteFooter } from "./_components/site-footer";
-import { ConsentBanner } from "./_components/consent-banner";
+import { FirstVisitNotice } from "./_components/first-visit-notice";
+import { SafeArea } from "./_components/boundary";
 import { SITE_CONFIG } from "./_utils/site.config";
 
 export const metadata: Metadata = {
@@ -87,7 +88,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SiteHeader />
         <div id="contenido">{children}</div>
         <SiteFooter />
-        <ConsentBanner />
+        <SafeArea>
+          <FirstVisitNotice />
+        </SafeArea>
       </body>
     </html>
   );

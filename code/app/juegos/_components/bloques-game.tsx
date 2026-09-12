@@ -36,7 +36,7 @@ export function BloquesGame({ game }: { game: GameSummary }) {
       difficulty={session.difficulty}
       onDifficultyChange={session.setDifficulty}
       showDifficulty={false}
-      interstitialNode={session.interstitialNode}
+      breakOverlayNode={session.breakOverlayNode}
       aside={
         <div className="flex flex-col gap-4 lg:flex-row">
           <div className="flex flex-1 flex-wrap gap-2" role="group" aria-label="Controles táctiles">
