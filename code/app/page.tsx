@@ -22,11 +22,11 @@ const STEPS = [
   },
   {
     title: "Tu amigo lo escribe",
-    body: "La otra persona abre el mismo juego, pega el código y pulsa «Unirse». La partida arranca en cuanto los dos navegadores se dan la mano.",
+    body: "La otra persona abre el mismo juego, pega el código y pulsa «Unirse». Aparecerá en la lista de la sala junto al anfitrión.",
   },
   {
-    title: "Jugáis directamente",
-    body: "La conexión es de navegador a navegador mediante WebRTC. Las jugadas no pasan por ningún servidor intermedio, así que la latencia es la mínima posible.",
+    title: "Empezáis juntos",
+    body: "Cuando estéis todos, el anfitrión pulsa «Comenzar partida» y empezáis a la vez. La conexión es de navegador a navegador mediante WebRTC, sin servidor intermedio.",
   },
 ];
 

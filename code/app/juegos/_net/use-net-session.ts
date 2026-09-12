@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   createRoom,
   joinRoom,
@@ -11,6 +11,15 @@ import {
   type NetStatus,
 } from "./peer-net";
 
+/** Un participante de la sala, tal y como aparece en la lista de jugadores. */
+export interface NetPlayer {
+  id: string;
+  label: string;
+  isYou: boolean;
+  isHost: boolean;
+  connected: boolean;
+}
+
 interface UseNetSessionResult {
   role: NetRole;
   status: NetStatus;
@@ -18,6 +27,8 @@ interface UseNetSessionResult {
   detail: string;
   /** `true` cuando el canal está abierto y se pueden enviar jugadas. */
   isLive: boolean;
+  /** Ocupantes de la sala, el anfitrión incluido. Vacío fuera de una sala. */
+  players: NetPlayer[];
   host: () => Promise<void>;
   join: (code: string) => Promise<void>;
   leave: () => void;
@@ -119,12 +130,41 @@ export function useNetSession(gameId: string): UseNetSessionResult {
     };
   }, []);
 
+  /**
+   * Hoy la sala es de dos, pero la lista se construye como colección para que
+   * admitir más participantes no obligue a rehacer la interfaz.
+   */
+  const players = useMemo<NetPlayer[]>(() => {
+    if (role === "solo") return [];
+
+    const rivalConnected = status === "connected";
+
+    if (role === "host") {
+      return [
+        { id: "host", label: "Tú (anfitrión)", isYou: true, isHost: true, connected: true },
+        {
+          id: "guest",
+          label: rivalConnected ? "Invitado" : "Esperando invitado…",
+          isYou: false,
+          isHost: false,
+          connected: rivalConnected,
+        },
+      ];
+    }
+
+    return [
+      { id: "host", label: "Anfitrión", isYou: false, isHost: true, connected: rivalConnected },
+      { id: "guest", label: "Tú", isYou: true, isHost: false, connected: true },
+    ];
+  }, [role, status]);
+
   return {
     role,
     status,
     code,
     detail,
     isLive: status === "connected",
+    players,
     host,
     join,
     leave,

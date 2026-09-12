@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useState } from "react";
 import type { GameSummary } from "@/app/_interfaces/game";
 import { GameShell } from "./game-shell";
-import { LobbyPanel } from "./lobby-panel";
+import { MatchToolbar } from "./match-toolbar";
 import { PhaserGame } from "./phaser-game";
+import { StartPanel } from "./start-panel";
 import { useGameSession } from "./use-game-session";
 import { createBloquesScene, BLOQUES_VIEWPORT } from "../_engine/bloques.scene";
 
@@ -25,51 +26,68 @@ export function BloquesGame({ game }: { game: GameSummary }) {
 
   const sceneFactory = useCallback((phaser: any) => createBloquesScene(phaser, bridge), [bridge]);
 
+  const playing = session.phase === "playing";
+
   return (
     <GameShell
       game={game}
       score={session.score}
       rivalLabel={session.isOnline ? "Rival" : "Récord"}
       status={session.status}
-      result={session.result}
-      onRestart={session.restart}
-      difficulty={session.difficulty}
-      onDifficultyChange={session.setDifficulty}
-      showDifficulty={false}
       breakOverlayNode={session.breakOverlayNode}
-      aside={
-        <div className="flex flex-col gap-4 lg:flex-row">
-          <div className="flex flex-1 flex-wrap gap-2" role="group" aria-label="Controles táctiles">
-            {TOUCH_ACTIONS.map((item) => (
-              <button
-                key={item.name}
-                type="button"
-                title={item.hint}
-                aria-label={item.hint}
-                onPointerDown={(event) => {
-                  event.preventDefault();
-                  action(item.name);
-                }}
-                className="h-12 flex-1 rounded-xl border border-border-subtle bg-surface text-lg text-fg transition active:bg-surface-2"
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-          {session.isOnline ? <RivalBoard /> : null}
-        </div>
+      overlay={
+        playing ? null : (
+          <StartPanel
+            phase={session.phase}
+            mode={session.mode}
+            onModeChange={session.changeMode}
+            difficulty={session.difficulty}
+            onDifficultyChange={session.setDifficulty}
+            showDifficulty={false}
+            canStart={session.canStart}
+            onStart={session.start}
+            result={session.result}
+            onBackToMenu={session.returnToLobby}
+            net={session.net}
+          />
+        )
       }
-      lobby={
-        <LobbyPanel
-          role={session.net.role}
-          status={session.net.status}
-          code={session.net.code}
-          detail={session.net.detail}
-          isLive={session.net.isLive}
-          onHost={session.net.host}
-          onJoin={session.net.join}
-          onLeave={session.net.leave}
-        />
+      toolbar={
+        playing ? (
+          <MatchToolbar
+            canRestart={session.canStart}
+            onRestart={session.start}
+            onBackToMenu={session.returnToLobby}
+          />
+        ) : null
+      }
+      aside={
+        playing ? (
+          <div className="flex flex-col gap-4 lg:flex-row">
+            <div
+              className="flex flex-1 flex-wrap gap-2"
+              role="group"
+              aria-label="Controles táctiles"
+            >
+              {TOUCH_ACTIONS.map((item) => (
+                <button
+                  key={item.name}
+                  type="button"
+                  title={item.hint}
+                  aria-label={item.hint}
+                  onPointerDown={(event) => {
+                    event.preventDefault();
+                    action(item.name);
+                  }}
+                  className="h-12 flex-1 rounded-xl border border-border-subtle bg-surface text-lg text-fg transition active:bg-surface-2"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+            {session.isOnline ? <RivalBoard /> : null}
+          </div>
+        ) : null
       }
     >
       <PhaserGame
