@@ -18,12 +18,12 @@ export default function ComoJugarPage() {
       <h2>Partida en línea, paso a paso</h2>
       <ul>
         <li>
-          <strong>Abre el juego</strong> que quieras. Empezarás jugando contra la máquina mientras
-          preparas la sala.
+          <strong>Abre el juego</strong> que quieras. Nada empieza solo: verás una pantalla para
+          elegir rival, con «Contra la máquina» seleccionado de entrada.
         </li>
         <li>
-          <strong>Pulsa «Crear sala»</strong>. Aparecerá un código de cinco caracteres, por ejemplo{" "}
-          <em>K7RQ2</em>.
+          <strong>Cambia a «Invitar a alguien» y pulsa «Crear sala»</strong>. Aparecerá un código de
+          cinco caracteres, por ejemplo <em>K7RQ2</em>.
         </li>
         <li>
           <strong>Comparte el código</strong> con la otra persona por el chat que uses. El botón
@@ -34,8 +34,12 @@ export default function ComoJugarPage() {
           texto y pulsa «Unirse».
         </li>
         <li>
-          <strong>La partida arranca sola</strong> en cuanto los dos navegadores se conectan. El
-          marcador se pone a cero y la máquina deja de jugar.
+          <strong>Los dos aparecéis en la lista de la sala</strong>, anfitrión incluido, con un
+          punto de color por cada persona ya conectada.
+        </li>
+        <li>
+          <strong>El anfitrión pulsa «Comenzar partida»</strong> y empezáis los dos a la vez, con el
+          marcador a cero. Quien se ha unido no tiene que hacer nada más.
         </li>
       </ul>
 

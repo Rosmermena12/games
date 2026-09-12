@@ -81,6 +81,11 @@ function bindConnection(
   connection.on("error", () =>
     callbacks.onStatus("error", "Se ha perdido la conexión con el otro jugador."),
   );
+
+  // El canal puede abrirse antes de que lleguemos a suscribirnos: en ese caso
+  // el evento `open` ya pasó y, sin esta comprobación, el anfitrión se queda
+  // esperando para siempre aunque el invitado ya esté dentro.
+  if (connection.open) callbacks.onStatus("connected");
 }
 
 function parseMessage(raw: unknown): NetMessage | null {
@@ -115,16 +120,26 @@ export async function createRoom(gameId: string, callbacks: SessionCallbacks): P
     const code = generateRoomCode();
     const peer: AnyPeer = new PeerCtor(peerIdFor(gameId, code), { debug: 0 });
 
-    const taken = await new Promise<boolean>((resolve) => {
-      peer.on("open", () => resolve(false));
+    // Tres desenlaces distintos: el identificador queda registrado, ya estaba
+    // cogido (se reintenta con otro código) o el broker falló de verdad. Antes
+    // los dos últimos se confundían y la sala quedaba muda, sin avisar.
+    const outcome = await new Promise<"open" | "taken" | "failed">((resolve) => {
+      peer.on("open", () => resolve("open"));
       peer.on("error", (error: { type?: string }) => {
-        resolve(error?.type === "unavailable-id");
+        resolve(error?.type === "unavailable-id" ? "taken" : "failed");
       });
     });
 
-    if (taken) {
+    if (outcome === "taken") {
       peer.destroy();
       continue;
+    }
+
+    if (outcome === "failed") {
+      peer.destroy();
+      throw new Error(
+        "No se pudo contactar con el servidor de emparejado. Revisa tu conexión o si algún bloqueador lo está filtrando.",
+      );
     }
 
     callbacks.onStatus("waiting", code);
@@ -191,6 +206,18 @@ export async function joinRoom(
   if (!connection) throw new Error("Código de sala no válido.");
 
   bindConnection(connection, listeners, callbacks);
+
+  // Si la sala no existe, PeerJS a veces no emite ningún error y la conexión se
+  // queda colgada. Sin este aviso el usuario sólo ve «Conectando…» eterno.
+  const timeout = window.setTimeout(() => {
+    if (!connection.open) {
+      callbacks.onStatus(
+        "error",
+        "No se ha podido entrar en la sala. Comprueba el código, o pide al anfitrión que cree una nueva.",
+      );
+    }
+  }, 12000);
+  connection.on("open", () => window.clearTimeout(timeout));
 
   peer.on("error", (error: { type?: string }) => {
     if (error?.type === "peer-unavailable") {

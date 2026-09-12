@@ -1,10 +1,10 @@
 "use client";
 
-import { useConsent } from "@/app/_hooks/use-consent";
+import { useVisitorPrefs } from "@/app/_hooks/use-visitor-prefs";
 
 /** Permite retirar el consentimiento y volver a mostrar el aviso de cookies. */
-export function CookieSettingsButton() {
-  const { reset } = useConsent();
+export function PrefsResetButton() {
+  const { reset } = useVisitorPrefs();
 
   return (
     <button

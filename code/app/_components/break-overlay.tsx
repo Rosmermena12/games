@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ADS_CONFIG } from "@/app/_utils/ads.config";
-import { AdSlot } from "./ad-slot";
+import { SLOTS_CONFIG } from "@/app/_utils/slots.config";
+import { SlotFrame } from "./slot-frame";
 
 interface OverlayProps {
   title: string;
@@ -10,8 +10,8 @@ interface OverlayProps {
   onClose: () => void;
 }
 
-function InterstitialOverlay({ title, subtitle, onClose }: OverlayProps) {
-  const [remaining, setRemaining] = useState<number>(ADS_CONFIG.interstitialSeconds);
+function BreakOverlayDialog({ title, subtitle, onClose }: OverlayProps) {
+  const [remaining, setRemaining] = useState<number>(SLOTS_CONFIG.breakSeconds);
 
   useEffect(() => {
     if (remaining <= 0) return;
@@ -42,8 +42,8 @@ function InterstitialOverlay({ title, subtitle, onClose }: OverlayProps) {
         <p className="text-xs text-fg-muted">{subtitle}</p>
       </div>
 
-      <AdSlot
-        slot={ADS_CONFIG.slots.interstitial}
+      <SlotFrame
+        slot={SLOTS_CONFIG.slots.interstitial}
         format="rectangle"
         minHeight={250}
         className="w-full max-w-[336px]"
@@ -65,7 +65,7 @@ function InterstitialOverlay({ title, subtitle, onClose }: OverlayProps) {
   );
 }
 
-interface InterstitialRequest {
+interface BreakOverlayRequest {
   title: string;
   subtitle: string;
 }
@@ -75,8 +75,8 @@ interface InterstitialRequest {
  * una promesa que se resuelve cuando el usuario lo cierra, de modo que el juego
  * puede esperar sin arrancar por detrás.
  */
-export function useInterstitial() {
-  const [request, setRequest] = useState<InterstitialRequest | null>(null);
+export function useBreakOverlay() {
+  const [request, setRequest] = useState<BreakOverlayRequest | null>(null);
   const resolverRef = useRef<(() => void) | null>(null);
 
   const show = useCallback((title: string, subtitle: string) => {
@@ -94,7 +94,7 @@ export function useInterstitial() {
   }, []);
 
   const node = request ? (
-    <InterstitialOverlay title={request.title} subtitle={request.subtitle} onClose={close} />
+    <BreakOverlayDialog title={request.title} subtitle={request.subtitle} onClose={close} />
   ) : null;
 
   return { show, node, isOpen: request !== null };

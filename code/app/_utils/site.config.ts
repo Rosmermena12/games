@@ -8,9 +8,9 @@ export const SITE_CONFIG = {
   description:
     "GamesFull es una plataforma gratuita de juegos multijugador que se juegan directamente en el navegador. Crea una sala, comparte el código de invitación y juega al instante contra un amigo.",
   /** Dominio de producción. Cámbialo antes de desplegar y de solicitar AdSense. */
-  url: "https://gamesfull.example",
+  url: "https://games.rctest.online",
   /** Correo de contacto visible en el aviso legal y en la política de privacidad. */
-  email: "contacto@gamesfull.example",
+  email: "contacto@rctest.online",
   /** Titular del sitio (persona o empresa). Obligatorio para el aviso legal. */
   owner: "GamesFull",
   /** País/jurisdicción aplicable en los términos de servicio. */

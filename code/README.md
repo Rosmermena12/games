@@ -18,10 +18,10 @@ caracteres y los dos navegadores se conectan directamente por WebRTC.
 
 ```
 app/
-  _components/        UI compartida (cabecera, pie, cards, anuncios, consentimiento)
-  _hooks/             use-consent (Consent Mode v2 sobre localStorage)
+  _components/        UI compartida (cabecera, pie, cards, huecos, aviso de cookies)
+  _hooks/             use-visitor-prefs (Consent Mode v2 sobre localStorage)
   _interfaces/        Tipos seguros para cliente y servidor
-  _utils/             site.config, ads.config, catálogo de juegos, cargador de scripts
+  _utils/             site.config, slots.config, catálogo de juegos, cargador de scripts
   juegos/
     _components/      Marco de partida, lobby, montaje de Phaser, sesión de juego
     _engine/          Escenas puras de Phaser (poing, hockey, bloques)
@@ -52,7 +52,7 @@ npm run dev
    nosotros» enlazadas desde el pie en todas las páginas; aviso de cookies con rechazo en un
    clic; Consent Mode v2 denegado por defecto; `ads.txt`; `robots.txt` que permite a
    `Mediapartners-Google` y `AdsBot-Google`; contenido original y navegación coherente.
-4. **Cuando te aprueben**, edita `app/_utils/ads.config.ts`:
+4. **Cuando te aprueben**, edita `app/_utils/slots.config.ts`:
    ```ts
    client: "ca-pub-XXXXXXXXXXXXXXXX",
    slots: { railLeft: "1234567890", railRight: "...", inline: "...", interstitial: "..." },
@@ -66,7 +66,7 @@ npm run dev
 - **Raíles laterales**: fijos a ambos lados del tablero a partir de 1280 px de ancho; se
   ocultan en pantallas pequeñas para no invadir el área de juego.
 - **Intersticial a pantalla completa**: al abrir cualquier juego y al reiniciar una partida.
-  Es cerrable a los 5 segundos (`ADS_CONFIG.interstitialSeconds`), está etiquetado como
+  Es cerrable a los 5 segundos (`SLOTS_CONFIG.breakSeconds`), está etiquetado como
   publicidad y nunca se superpone al tablero mientras se juega.
 - **Banner horizontal**: bajo las cards de la portada.
 
@@ -77,3 +77,20 @@ npm run dev
   `_internal` con `import "server-only"`, según la convención del proyecto.
 - `app/products/` es la demo de la plantilla original. No está enlazada desde ninguna página
   y `robots.txt` la excluye; puede borrarse cuando ya no haga falta como referencia.
+
+## Por qué los archivos de publicidad tienen nombres neutros
+
+Los bloqueadores de contenido filtran por **nombre de archivo**. Un chunk llamado
+`ad-slot-*.js` o `consent-banner-*.js` se cancela con `ERR_BLOCKED_BY_CLIENT`, y como
+vinext carga los componentes de cliente con import dinámico, ese fallo propagaba hasta
+`<html>` y dejaba la página en blanco en producción.
+
+Por eso los módulos implicados se llaman `slot-frame`, `side-rail`, `break-overlay`,
+`first-visit-notice`, `prefs-reset-button`, `use-visitor-prefs` y `slots.config`.
+**Al añadir un componente nuevo relacionado con publicidad, evita en su nombre de archivo
+las palabras** ad, ads, advert, banner, consent, cookie, promo, sponsor, popup e
+interstitial. El texto visible para la persona usuaria sí dice «Publicidad»: eso lo exige
+AdSense y no afecta al filtrado, que sólo mira las URL.
+
+Como segunda red, `app/_components/boundary.tsx` (`SafeArea`) envuelve los bloques
+opcionales: si alguno se bloquea de todos modos, se pierde ese bloque y no la página.

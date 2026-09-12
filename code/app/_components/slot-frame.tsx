@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ADS_CONFIG, areAdsEnabled } from "@/app/_utils/ads.config";
-import { useConsent } from "@/app/_hooks/use-consent";
+import { SLOTS_CONFIG, areSlotsEnabled } from "@/app/_utils/slots.config";
+import { useVisitorPrefs } from "@/app/_hooks/use-visitor-prefs";
 import { loadScript } from "@/app/_utils/load-script";
 
-interface AdSlotProps {
+interface SlotFrameProps {
   /** Identificador del bloque en AdSense. Vacío = marcador de posición. */
   slot: string;
   format?: "vertical" | "horizontal" | "rectangle" | "auto";
@@ -15,7 +15,7 @@ interface AdSlotProps {
   label?: string;
 }
 
-const FORMAT_TO_ADSENSE: Record<NonNullable<AdSlotProps["format"]>, string> = {
+const FORMAT_TO_ADSENSE: Record<NonNullable<SlotFrameProps["format"]>, string> = {
   vertical: "vertical",
   horizontal: "horizontal",
   rectangle: "rectangle",
@@ -28,25 +28,25 @@ const FORMAT_TO_ADSENSE: Record<NonNullable<AdSlotProps["format"]>, string> = {
  * caso reserva el mismo espacio con un marcador propio, claramente etiquetado
  * como espacio publicitario para no inducir a error al usuario.
  */
-export function AdSlot({
+export function SlotFrame({
   slot,
   format = "auto",
   minHeight = 250,
   className = "",
   label = "Publicidad",
-}: AdSlotProps) {
-  const { consent } = useConsent();
+}: SlotFrameProps) {
+  const { consent } = useVisitorPrefs();
   const containerRef = useRef<HTMLModElement>(null);
   const pushedRef = useRef(false);
   const [failed, setFailed] = useState(false);
 
-  const canServe = areAdsEnabled() && slot.trim().length > 0 && consent?.ads === "granted";
+  const canServe = areSlotsEnabled() && slot.trim().length > 0 && consent?.ads === "granted";
 
   useEffect(() => {
     if (!canServe || pushedRef.current) return;
 
     let cancelled = false;
-    const src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS_CONFIG.client}`;
+    const src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${SLOTS_CONFIG.client}`;
 
     loadScript(src)
       .then(() => {
@@ -78,7 +78,7 @@ export function AdSlot({
           ref={containerRef}
           className="adsbygoogle block w-full"
           style={{ display: "block", width: "100%", minHeight }}
-          data-ad-client={ADS_CONFIG.client}
+          data-ad-client={SLOTS_CONFIG.client}
           data-ad-slot={slot}
           data-ad-format={FORMAT_TO_ADSENSE[format]}
           data-full-width-responsive="true"

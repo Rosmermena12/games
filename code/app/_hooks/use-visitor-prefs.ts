@@ -55,7 +55,7 @@ function write(state: ConsentState) {
  * Estado de consentimiento de cookies. Devuelve `null` hasta que el usuario
  * decide, para que ningún script de terceros se cargue antes de tiempo.
  */
-export function useConsent() {
+export function useVisitorPrefs() {
   const [consent, setConsent] = useState<ConsentState | null>(null);
   const [hydrated, setHydrated] = useState(false);
 

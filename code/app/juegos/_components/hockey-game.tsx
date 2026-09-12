@@ -3,8 +3,9 @@
 import { useCallback } from "react";
 import type { GameSummary } from "@/app/_interfaces/game";
 import { GameShell } from "./game-shell";
-import { LobbyPanel } from "./lobby-panel";
+import { MatchToolbar } from "./match-toolbar";
 import { PhaserGame } from "./phaser-game";
+import { StartPanel } from "./start-panel";
 import { useGameSession } from "./use-game-session";
 import { createHockeyScene } from "../_engine/hockey.scene";
 
@@ -16,28 +17,40 @@ export function HockeyGame({ game }: { game: GameSummary }) {
 
   const sceneFactory = useCallback((phaser: any) => createHockeyScene(phaser, bridge), [bridge]);
 
+  const playing = session.phase === "playing";
+
   return (
     <GameShell
       game={game}
       score={session.score}
       rivalLabel={session.isOnline ? "Rival" : "Máquina"}
       status={session.status}
-      result={session.result}
-      onRestart={session.restart}
-      difficulty={session.difficulty}
-      onDifficultyChange={session.setDifficulty}
-      interstitialNode={session.interstitialNode}
-      lobby={
-        <LobbyPanel
-          role={session.net.role}
-          status={session.net.status}
-          code={session.net.code}
-          detail={session.net.detail}
-          isLive={session.net.isLive}
-          onHost={session.net.host}
-          onJoin={session.net.join}
-          onLeave={session.net.leave}
-        />
+      breakOverlayNode={session.breakOverlayNode}
+      overlay={
+        playing ? null : (
+          <StartPanel
+            phase={session.phase}
+            mode={session.mode}
+            onModeChange={session.changeMode}
+            difficulty={session.difficulty}
+            onDifficultyChange={session.setDifficulty}
+            showDifficulty
+            canStart={session.canStart}
+            onStart={session.start}
+            result={session.result}
+            onBackToMenu={session.returnToLobby}
+            net={session.net}
+          />
+        )
+      }
+      toolbar={
+        playing ? (
+          <MatchToolbar
+            canRestart={session.canStart}
+            onRestart={session.start}
+            onBackToMenu={session.returnToLobby}
+          />
+        ) : null
       }
     >
       <PhaserGame
