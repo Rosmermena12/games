@@ -1,0 +1,152 @@
+{
+  "items": [
+    {
+      "id": "p-001",
+      "title": "Silla Lounge Nordic",
+      "description": "Butaca de roble macizo con tapizado de lana natural. Diseño escandinavo de líneas limpias, pensada para espacios de lectura donde la comodidad no compite con la estética. Estructura ensamblada a mano y acabado al aceite.",
+      "summary": "Butaca de roble macizo con tapizado de lana natural.",
+      "category": "Mobiliario",
+      "published_at": "2026-08-28T10:15:00Z",
+      "location": "Valencia, ES",
+      "price_amount": 489,
+      "price_currency": "EUR",
+      "images": [
+        "https://picsum.photos/seed/nordic-1/1200/900",
+        "https://picsum.photos/seed/nordic-2/1200/900",
+        "https://picsum.photos/seed/nordic-3/1200/900",
+        "https://picsum.photos/seed/nordic-4/1200/900"
+      ],
+      "contact_email": "ventas@nordicstudio.example",
+      "contact_phone": "+34600111222"
+    },
+    {
+      "id": "p-002",
+      "title": "Lámpara Arco Mínima",
+      "description": "Luminaria de pie en acero cepillado con brazo articulado. Difusor orientable de aluminio anodizado y base de mármol Carrara que estabiliza sin necesidad de anclaje. Compatible con bombillas E27 regulables.",
+      "summary": "Luminaria de pie en acero cepillado con base de mármol.",
+      "category": "Iluminación",
+      "published_at": "2026-09-02T08:40:00Z",
+      "location": "Barcelona, ES",
+      "price_amount": 315,
+      "price_currency": "EUR",
+      "images": [
+        "https://picsum.photos/seed/arco-1/1200/900",
+        "https://picsum.photos/seed/arco-2/1200/900",
+        "https://picsum.photos/seed/arco-3/1200/900"
+      ],
+      "contact_email": "hola@luminaria.example",
+      "contact_phone": null
+    },
+    {
+      "id": "p-003",
+      "title": "Mesa de Centro Travertino",
+      "description": "Tablero circular de travertino romano sin tratar sobre base de acero negro mate. Cada pieza conserva la porosidad original de la piedra, por lo que no existen dos unidades idénticas. Incluye sellado hidrófugo aplicado en taller.",
+      "summary": "Tablero circular de travertino sobre base de acero negro.",
+      "category": "Mobiliario",
+      "published_at": "2026-07-19T16:05:00Z",
+      "location": "Madrid, ES",
+      "price_amount": 720,
+      "price_currency": "EUR",
+      "images": [
+        "https://picsum.photos/seed/traver-1/1200/900",
+        "https://picsum.photos/seed/traver-2/1200/900",
+        "https://picsum.photos/seed/traver-3/1200/900",
+        "https://picsum.photos/seed/traver-4/1200/900",
+        "https://picsum.photos/seed/traver-5/1200/900"
+      ],
+      "contact_email": null,
+      "contact_phone": "+34655998877"
+    },
+    {
+      "id": "p-004",
+      "title": "Cerámica Utilitaria — Serie Hueso",
+      "description": "Conjunto de seis piezas de gres esmaltado en tonos hueso y arena, torneadas a mano y cocidas a alta temperatura. Aptas para horno y lavavajillas. Pequeñas variaciones de tono forman parte del proceso artesanal.",
+      "summary": "Seis piezas de gres esmaltado torneadas a mano.",
+      "category": "Cerámica",
+      "published_at": "2026-09-08T11:25:00Z",
+      "location": "Oporto, PT",
+      "price_amount": 168,
+      "price_currency": "EUR",
+      "images": [
+        "https://picsum.photos/seed/hueso-1/1200/900",
+        "https://picsum.photos/seed/hueso-2/1200/900",
+        "https://picsum.photos/seed/hueso-3/1200/900"
+      ],
+      "contact_email": "taller@ceramicahueso.example",
+      "contact_phone": "+351912345678"
+    },
+    {
+      "id": "p-005",
+      "title": "Estantería Modular Kubo",
+      "description": "Sistema de estantes en contrachapado de abedul con juntas de ensamble en seco: se monta y desmonta sin herramientas ni tornillos. Ampliable en módulos de 40 cm en horizontal y vertical.",
+      "summary": "Estantes de abedul con ensamble en seco, sin tornillos.",
+      "category": "Almacenaje",
+      "published_at": "2026-06-30T09:00:00Z",
+      "location": "Lisboa, PT",
+      "price_amount": 395,
+      "price_currency": "EUR",
+      "images": [
+        "https://picsum.photos/seed/kubo-1/1200/900",
+        "https://picsum.photos/seed/kubo-2/1200/900",
+        "https://picsum.photos/seed/kubo-3/1200/900",
+        "https://picsum.photos/seed/kubo-4/1200/900"
+      ],
+      "contact_email": "info@kubo.example",
+      "contact_phone": "+351934000111"
+    },
+    {
+      "id": "p-006",
+      "title": "Textil de Lino Lavado",
+      "description": "Juego de cama en lino europeo lavado a la piedra, con gramaje medio que regula la temperatura durante todo el año. Teñido con pigmentos de bajo impacto y certificación OEKO-TEX.",
+      "summary": "Juego de cama en lino europeo lavado a la piedra.",
+      "category": "Textil",
+      "published_at": "2026-09-10T07:10:00Z",
+      "location": "Sevilla, ES",
+      "price_amount": 240,
+      "price_currency": "EUR",
+      "images": [
+        "https://picsum.photos/seed/lino-1/1200/900",
+        "https://picsum.photos/seed/lino-2/1200/900",
+        "https://picsum.photos/seed/lino-3/1200/900"
+      ],
+      "contact_email": "pedidos@linocasa.example",
+      "contact_phone": "+34677223344"
+    },
+    {
+      "id": "p-007",
+      "title": "Espejo Circular Latón",
+      "description": "Espejo de 80 cm con marco de latón macizo sin lacar, que desarrolla pátina natural con el tiempo. Cristal de 6 mm con canto pulido y sistema de anclaje oculto incluido.",
+      "summary": "Espejo de 80 cm con marco de latón macizo sin lacar.",
+      "category": "Decoración",
+      "published_at": "2026-08-05T14:50:00Z",
+      "location": "Bilbao, ES",
+      "price_amount": 275,
+      "price_currency": "EUR",
+      "images": [
+        "https://picsum.photos/seed/laton-1/1200/900",
+        "https://picsum.photos/seed/laton-2/1200/900"
+      ],
+      "contact_email": "contacto@latonstudio.example",
+      "contact_phone": "+34688556677"
+    },
+    {
+      "id": "p-008",
+      "title": "Banco de Entrada Fresno",
+      "description": "Banco bajo de fresno macizo con asiento de cuerda de papel trenzada a mano. Pensado para recibidores estrechos: 96 cm de largo y sólo 34 cm de fondo. Acabado en jabón natural.",
+      "summary": "Banco de fresno con asiento de cuerda de papel trenzada.",
+      "category": "Mobiliario",
+      "published_at": "2026-05-22T12:30:00Z",
+      "location": "Coruña, ES",
+      "price_amount": 430,
+      "price_currency": "EUR",
+      "images": [
+        "https://picsum.photos/seed/fresno-1/1200/900",
+        "https://picsum.photos/seed/fresno-2/1200/900",
+        "https://picsum.photos/seed/fresno-3/1200/900",
+        "https://picsum.photos/seed/fresno-4/1200/900"
+      ],
+      "contact_email": null,
+      "contact_phone": null
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Google advertising crawlers need access to review the site.
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+# Template demo, not part of the public site.
+Disallow: /products
+
+Sitemap: https://gamesfull.example/sitemap.xml
